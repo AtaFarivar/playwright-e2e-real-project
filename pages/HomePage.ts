@@ -19,6 +19,13 @@ export class HomePage {
     });
   }
 
+  async verifyLogo() {
+    await test.step("Step: Verify Trendyol logo visibility", async () => {
+      const logo = this.page.locator(HomePageLocators.trendyolLogo);
+      await expect(logo).toBeVisible({ timeout: 10000 });
+    });
+  }
+
   async clickLogin() {
     await test.step("Navigate to Login Page", async () => {
       const loginMenu = this.page
