@@ -31,7 +31,15 @@ reportDirs.forEach((dir) => {
     fs.rmSync(dirPath, { recursive: true, force: true });
   }
 });
-
+// Copy environment.properties to allure-results before tests start
+const allureResultsPath = path.join(__dirname, "allure-results");
+if (!fs.existsSync(allureResultsPath)) {
+  fs.mkdirSync(allureResultsPath);
+}
+fs.copyFileSync(
+  path.join(__dirname, "environment.properties"),
+  path.join(allureResultsPath, "environment.properties")
+);
 /**
  * 3. Main Framework Configuration
  */
