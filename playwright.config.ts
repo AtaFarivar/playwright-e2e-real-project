@@ -3,26 +3,11 @@ import fs from "fs";
 import path from "path";
 import dotenv from "dotenv";
 
-/**
- * 1. Load environment variables from the .env file.
- */
+// Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 
-// ------------------- DEBUG SECTION -------------------
-console.log("\n==================================================");
-console.log("🔍 ENV VARIABLE CHECK:");
-console.log(
-  "EMAIL    :",
-  process.env.TRENDYOL_EMAIL ? "✅ Loaded" : "❌ undefined"
-);
-console.log(
-  "PASSWORD :",
-  process.env.TRENDYOL_PASSWORD ? "✅ Loaded" : "❌ undefined"
-);
-console.log("==================================================\n");
-
 /**
- * 2. Auto-clean old reports and results.
+ * Cleanup old reports and results folders before starting new tests
  */
 const reportDirs = ["allure-results", "playwright-report", "test-results"];
 reportDirs.forEach((dir) => {
@@ -31,27 +16,31 @@ reportDirs.forEach((dir) => {
     fs.rmSync(dirPath, { recursive: true, force: true });
   }
 });
-// Copy environment.properties to allure-results before tests start
-const allureResultsPath = path.join(__dirname, "allure-results");
-if (!fs.existsSync(allureResultsPath)) {
-  fs.mkdirSync(allureResultsPath);
-}
-fs.copyFileSync(
-  path.join(__dirname, "environment.properties"),
-  path.join(allureResultsPath, "environment.properties")
-);
+
 /**
- * 3. Main Framework Configuration
+ * FIX: Using { recursive: true } prevents "EEXIST" error when multiple
+ * workers try to create the directory simultaneously.
  */
+const allurePath = path.join(__dirname, "allure-results");
+fs.mkdirSync(allurePath, { recursive: true });
+
+// Copy Environment Info for Allure Report
+const envFilePath = path.join(__dirname, "environment.properties");
+if (fs.existsSync(envFilePath)) {
+  fs.copyFileSync(envFilePath, path.join(allurePath, "environment.properties"));
+}
+
 export default defineConfig({
   testDir: "./tests",
+
+  // Running tests sequentially to avoid UI overlaps
   fullyParallel: false,
 
-  /* The directory where artifacts like screenshots and videos are stored */
+  // Folder for detailed test artifacts (videos, traces)
   outputDir: "test-results/",
 
   reporter: [
-    ["html", { open: "never" }], // 'never' prevents opening multiple tabs
+    ["html", { open: "never" }],
     ["allure-playwright", { outputFolder: "allure-results" }],
   ],
 
@@ -62,13 +51,10 @@ export default defineConfig({
       slowMo: 500,
     },
 
-    /* Optimized Media Settings */
-    video: {
-      mode: "retain-on-failure",
-      size: { width: 1280, height: 720 }, // Defining size helps with rendering
-    },
-    screenshot: "on", // Change to "on" temporarily to test if it captures anything
-    trace: "on", // Trace is the best tool for debugging
+    // Capturing artifacts for debugging failures
+    video: "retain-on-failure",
+    screenshot: "only-on-failure",
+    trace: "on-first-retry",
   },
 
   projects: [
@@ -76,20 +62,5 @@ export default defineConfig({
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
     },
-    // 2. Firefox (Uncomment to enable)
-    /*
-    {
-      name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
-    },
-    */
-
-    // 3. Safari - Webkit (Uncomment to enable)
-    /*
-    {
-      name: "webkit",
-      use: { ...devices["Desktop Safari"] },
-    },
-    */
   ],
 });

@@ -1,5 +1,7 @@
 # 🛡️ Advanced Playwright Automation Framework (Trendyol E2E)
 
+![Allure Report Dashboard](assets/allure1.jpg)
+![Allure Report Dashboard](assets/allure2.jpg)
 This repository demonstrates a professional-grade E2E test automation framework built with **Playwright** and **TypeScript**. The architecture follows the "Gold Standard" by utilizing **Page Object Model (POM)** combined with **Custom Fixtures** for maximum scalability and clean code.
 
 ## 🚀 Key Features
@@ -32,7 +34,9 @@ This repository demonstrates a professional-grade E2E test automation framework 
 ```
 
 ## 🏁 Getting Started
+
 ### 1. Prerequisites
+
 Node.js (v18+)
 
 Allure Commandline (for viewing Allure reports)
@@ -47,6 +51,7 @@ npx playwright install
 ```
 
 ### 3. Setup Credentials
+
 Create a .env file in the root directory and add your Trendyol account details:
 
 ```plaintext
@@ -55,6 +60,7 @@ TRENDYOL_PASSWORD=your_password
 ```
 
 ### 4. Running Tests
+
 Run all login scenarios:
 
 ```bash
@@ -62,6 +68,7 @@ npx playwright test --grep @login
 ```
 
 ### 5. Generating Reports
+
 To view the visual Allure dashboard:
 
 ```bash

@@ -5,14 +5,12 @@ export class LoginPage {
   constructor(private page: Page) {}
 
   async fillLoginForm(email: string, password: string) {
-    await test.step(`Step: Fill credentials for: ${email}`, async () => {
-      // استفاده از || "" برای جلوگیری از خطا در صورت خالی بودن دیتا
-      await this.page
-        .getByTestId(LoginPageLocators.emailInput)
-        .fill(email || "");
-      await this.page
-        .getByTestId(LoginPageLocators.passwordInput)
-        .fill(password || "");
+    await test.step(`Step: Fill email: ${email}`, async () => {
+      await this.page.getByTestId("email-input").fill(email);
+    });
+
+    await test.step("Step: Fill password: ********", async () => {
+      await this.page.getByTestId("password-input").fill(password);
     });
   }
 
