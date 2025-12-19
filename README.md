@@ -1,79 +1,73 @@
-# 🛡️ Advanced Playwright Automation Framework (Trendyol E2E)
+# 🎭 Playwright E2E Testing Project - Trendyol
 
-![Allure Report Dashboard](assets/allure1.jpg)
-![Allure Report Dashboard](assets/allure2.jpg)
-![Playwright Tests](https://github.com/AtaFarivar/playwright-e2e-real-project.git/actions/workflows/playwright.yml/badge.svg)
-This repository demonstrates a professional-grade E2E test automation framework built with **Playwright** and **TypeScript**. The architecture follows the "Gold Standard" by utilizing **Page Object Model (POM)** combined with **Custom Fixtures** for maximum scalability and clean code.
+This repository contains an automated End-to-End (E2E) testing suite for **Trendyol**, built with **Playwright**, **TypeScript**, and **Allure Reports**.
 
-## 🚀 Key Features
+---
 
-- **Fixture-based Architecture:** Leveraging Playwright Fixtures for dependency injection, eliminating the need for manual page object instantiation in every test.
-- **Self-Cleaning Reports:** Integrated Node.js logic to automatically wipe old `allure-results` and `playwright-report` folders before each run.
-- **BDD-Style Reporting:** Using `test.step` to create human-readable execution steps visible in Allure and HTML reports.
-- **Environment Security:** Secure credential management using `dotenv` to keep sensitive data out of the source code.
-- **Rich Debugging:** Configured to capture **Video**, **Screenshots**, and **Traces** on test failures.
-- **Multi-Browser Ready:** Pre-configured for Chromium, Firefox, and Webkit.
+## 🚀 Live Test Report
+You can view the latest automated test results here:
+👉 **[View Allure Report](https://atafarivar.github.io/playwright-e2e-real-project/)**
 
-## 🛠️ Tech Stack
+---
 
-- **Engine:** [Playwright](https://playwright.dev/)
-- **Language:** TypeScript
-- **Pattern:** Page Object Model (POM) & Custom Fixtures
-- **Reporting:** Allure Framework & Playwright HTML Report
-- **Security:** Dotenv (.env)
+## 🛠 Features & Architecture
+- **Framework**: Playwright (for fast, reliable, and cross-browser testing).
+- **Language**: TypeScript (for type safety and better developer experience).
+- **Design Pattern**: Page Object Model (POM) for maintainable and scalable code.
+- **Reporting**: Allure Report with historical data tracking.
+- **CI/CD**: Integrated with GitHub Actions for automated execution on every push.
+- **Environment Management**: Secure handling of credentials using GitHub Secrets.
 
-## 📂 Project Structure
+---
 
-```text
-├── fixtures/           # Dependency injection (BaseTest.ts)
-├── models/             # Centralized locators (LoginPageLocators.ts)
-├── pages/              # Logic & Action methods (LoginPage.ts)
-├── tests/              # Test scenarios (login.spec.ts)
-├── .env                # Local environment variables (Hidden from Git)
-├── Credentials.ts      # Test data mapping from process.env
-└── playwright.config.ts# Global framework & reporting configuration
-```
+## 🧪 Test Scenarios
+The suite currently includes **7 automated tests** covering:
+- ✅ **Homepage Visibility**: Verifying core UI elements and marketing popups.
+- ✅ **Authentication Suite**:
+  - Valid Login (using secure environment variables).
+  - Invalid Email/Password combinations.
+  - Edge cases like empty fields and trailing/leading spaces in inputs.
 
-## 🏁 Getting Started
+---
 
-### 1. Prerequisites
+## ⚙️ How to Run Locally
 
-Node.js (v18+)
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/AtaFarivar/playwright-e2e-real-project.git
+   cd playwright-e2e-real-project
+   ```
 
-Allure Commandline (for viewing Allure reports)
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-### 2. Installation
+3. **Install Playwright browsers:**
+   ```bash
+   npx playwright install
+   ```
 
-```bash
-git clone https://github.com/AtaFarivar/playwright-e2e-real-project.git
-cd playwright-e2e-real-project
-npm install
-npx playwright install
-```
+4. **Run tests:**
+   ```bash
+   npx playwright test
+   ```
 
-### 3. Setup Credentials
+5. **Generate & Open Allure Report:**
+   ```bash
+   npx playwright test --reporter=allure-playwright
+   npx allure serve allure-results
+   ```
 
-Create a .env file in the root directory and add your Trendyol account details:
+---
 
-```plaintext
-TRENDYOL_EMAIL=your_email@example.com
-TRENDYOL_PASSWORD=your password
-```
+## 🤖 CI/CD Integration
+Tests are automatically triggered on:
 
-### 4. Running Tests
+- Every push to main or master branches.
+- Every pull_request.
+- Manual trigger via the "Run workflow" button in the GitHub Actions tab.
 
-Run all login scenarios:
+---
 
-```bash
-npx playwright test --grep @login
-```
-
-### 5. Generating Reports
-
-To view the visual Allure dashboard:
-
-```bash
-npx allure serve allure-results
-```
-
-Author: Ata Farivar
+Created by Ata Farivar
