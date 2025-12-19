@@ -8,7 +8,6 @@ dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 /**
  * Cleanup only on Local machine.
- * GitHub Actions handles its own clean environment for each run.
  */
 if (!process.env.CI) {
   const reportDirs = ["allure-results", "playwright-report", "test-results"];
@@ -21,7 +20,7 @@ if (!process.env.CI) {
 }
 
 /**
- * Create Allure results directory with environment properties.
+ * Create Allure results directory.
  */
 const allurePath = path.join(__dirname, "allure-results");
 if (!fs.existsSync(allurePath)) {
@@ -36,13 +35,13 @@ if (fs.existsSync(envFilePath)) {
 export default defineConfig({
   testDir: "./tests",
 
-  // Balanced parallelism for stability
+  // Set to false to avoid database/session conflicts on Trendyol
   fullyParallel: false,
 
-  // Retry logic for CI environments
+  // We keep retries to stabilize flaky tests, but we want to see the failures too
   retries: process.env.CI ? 1 : 0,
 
-  // Use 1 worker on CI to prevent race conditions in Allure results
+  // Single worker in CI ensures Allure files are written correctly without race conditions
   workers: process.env.CI ? 1 : undefined,
 
   outputDir: "test-results/",
@@ -54,6 +53,7 @@ export default defineConfig({
       {
         outputFolder: "allure-results",
         detail: true,
+        suiteTitle: true, // Categorize tests by browser/project name in Allure
       },
     ],
   ],
@@ -64,6 +64,7 @@ export default defineConfig({
     launchOptions: {
       slowMo: 500,
     },
+    // Captured files help debug why a test failed before a successful retry
     video: "retain-on-failure",
     screenshot: "only-on-failure",
     trace: "on-first-retry",
@@ -74,5 +75,15 @@ export default defineConfig({
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
     },
+    {
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
+    },
+    /*
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
+    */
   ],
 });
