@@ -18,7 +18,6 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
-        # add the secret varaibales
         run: npx playwright test
         env:
           TRENDYOL_EMAIL: ${{ secrets.TRENDYOL_EMAIL }}
