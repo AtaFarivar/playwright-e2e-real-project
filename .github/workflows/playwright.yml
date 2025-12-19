@@ -4,6 +4,7 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+  workflow_dispatch: # این خط باعث می‌شود دکمه Run workflow در گیت‌هاب ظاهر شود
 
 permissions:
   contents: write
@@ -28,7 +29,6 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        # ابتدا لیست تست‌ها را چاپ می‌کنیم (برای عیب‌یابی) و سپس اجرا می‌کنیم
         run: |
           echo "--- LISTING ALL DISCOVERED TESTS ---"
           npx playwright test --list
