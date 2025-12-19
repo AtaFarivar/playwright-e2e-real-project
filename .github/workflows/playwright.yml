@@ -28,7 +28,12 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        run: npx playwright test
+        # ابتدا لیست تست‌ها را چاپ می‌کنیم (برای عیب‌یابی) و سپس اجرا می‌کنیم
+        run: |
+          echo "--- LISTING ALL DISCOVERED TESTS ---"
+          npx playwright test --list
+          echo "--- STARTING TEST EXECUTION ---"
+          npx playwright test --reporter=line,allure-playwright
         env:
           TRENDYOL_EMAIL: ${{ secrets.TRENDYOL_EMAIL }}
           TRENDYOL_PASSWORD: ${{ secrets.TRENDYOL_PASSWORD }}
