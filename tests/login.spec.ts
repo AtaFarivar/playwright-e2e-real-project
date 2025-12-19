@@ -2,7 +2,7 @@ import { test } from "../fixtures/baseTest";
 import { LoginCredentials } from "../Credentials";
 import { AppMessages } from "../AppMessages";
 
-test.describe("Trendyol Login Feature Tests @login", () => {
+test.describe("Trendyol Login Tests @login", () => {
   test.beforeEach(async ({ homePage }) => {
     await homePage.open();
     await homePage.closePopup();
