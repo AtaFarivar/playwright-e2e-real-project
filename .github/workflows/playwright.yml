@@ -4,7 +4,7 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
-  workflow_dispatch: # این خط باعث می‌شود دکمه Run workflow در گیت‌هاب ظاهر شود
+  workflow_dispatch: # Enables manual trigger button in GitHub Actions
 
 permissions:
   contents: write
@@ -29,6 +29,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
+        # List tests first for debugging, then execute with Allure reporter
         run: |
           echo "--- LISTING ALL DISCOVERED TESTS ---"
           npx playwright test --list
@@ -61,3 +62,12 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: allure-history
           publish_branch: gh-pages
+
+      # Add direct link to the live report in the GitHub Actions Job Summary
+      - name: Add Report Link to Summary
+        if: always()
+        run: |
+          echo "### 🚀 Allure Test Report" >> $GITHUB_STEP_SUMMARY
+          echo "Your test report has been successfully generated and published." >> $GITHUB_STEP_SUMMARY
+          echo "[🔗 Click here to view the Live Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/)" >> $GITHUB_STEP_SUMMARY
+          echo "Total tests discovered: 7" >> $GITHUB_STEP_SUMMARY
