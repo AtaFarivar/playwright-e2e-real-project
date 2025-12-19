@@ -57,7 +57,7 @@ Create a .env file in the root directory and add your Trendyol account details:
 
 ```plaintext
 TRENDYOL_EMAIL=your_email@example.com
-TRENDYOL_PASSWORD=your_password
+TRENDYOL_PASSWORD=your password
 ```
 
 ### 4. Running Tests
