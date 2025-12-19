@@ -1,0 +1,8 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","10497","Scenario 01: Valid credentials","chromium","Fri Dec 19 08:34:57 UTC 2025","passed","Fri Dec 19 08:35:07 UTC 2025","Trendyol Login Tests @login","login.spec.ts","",""
+"","6133","Scenario 04: Empty password field","chromium","Fri Dec 19 08:35:20 UTC 2025","passed","Fri Dec 19 08:35:27 UTC 2025","Trendyol Login Tests @login","login.spec.ts","",""
+"","6344","Trendyol Home Page Test","chromium","Fri Dec 19 08:34:57 UTC 2025","passed","Fri Dec 19 08:35:03 UTC 2025","","homepage.spec.ts","",""
+"","6050","Scenario 06: Trailing space in email","chromium","Fri Dec 19 08:35:33 UTC 2025","passed","Fri Dec 19 08:35:39 UTC 2025","Trendyol Login Tests @login","login.spec.ts","",""
+"","6026","Scenario 02: Invalid email","chromium","Fri Dec 19 08:35:09 UTC 2025","passed","Fri Dec 19 08:35:15 UTC 2025","Trendyol Login Tests @login","login.spec.ts","",""
+"","5798","Scenario 03: Invalid password","chromium","Fri Dec 19 08:35:15 UTC 2025","passed","Fri Dec 19 08:35:20 UTC 2025","Trendyol Login Tests @login","login.spec.ts","",""
+"","5929","Scenario 05: Leading space in email","chromium","Fri Dec 19 08:35:27 UTC 2025","passed","Fri Dec 19 08:35:33 UTC 2025","Trendyol Login Tests @login","login.spec.ts","",""
