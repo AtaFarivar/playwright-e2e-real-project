@@ -2,6 +2,7 @@
 
 ![Allure Report Dashboard](assets/allure1.jpg)
 ![Allure Report Dashboard](assets/allure2.jpg)
+![Playwright Tests](https://github.com/AtaFarivar/playwright-e2e-real-project.git/actions/workflows/playwright.yml/badge.svg)
 This repository demonstrates a professional-grade E2E test automation framework built with **Playwright** and **TypeScript**. The architecture follows the "Gold Standard" by utilizing **Page Object Model (POM)** combined with **Custom Fixtures** for maximum scalability and clean code.
 
 ## 🚀 Key Features
