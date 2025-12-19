@@ -4,6 +4,11 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   test:
     timeout-minutes: 60
@@ -22,9 +27,30 @@ jobs:
         env:
           TRENDYOL_EMAIL: ${{ secrets.TRENDYOL_EMAIL }}
           TRENDYOL_PASSWORD: ${{ secrets.TRENDYOL_PASSWORD }}
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+
+      # 1. Get Allure history to show the Trend chart
+      - name: Get Allure history
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
         with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+          ref: gh-pages
+          path: gh-pages
+
+      # 2. Generate Allure Report
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        with:
+          allure_results: allure-results
+          allure_history: allure-history
+          keep_reports: 20
+
+      # 3. Deploy to GitHub Pages
+      - name: Deploy report to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: allure-history
+          publish_branch: gh-pages
