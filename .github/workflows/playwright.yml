@@ -63,11 +63,13 @@ jobs:
           publish_dir: allure-history
           publish_branch: gh-pages
 
-      # Add direct link to the live report in the GitHub Actions Job Summary
+      # Add direct link to the live report and dynamic test count in the Summary
       - name: Add Report Link to Summary
         if: always()
         run: |
+          TOTAL_TESTS=$(npx playwright test --list | grep "Total:" | awk '{print $2}')
+
           echo "### 🚀 Allure Test Report" >> $GITHUB_STEP_SUMMARY
           echo "Your test report has been successfully generated and published." >> $GITHUB_STEP_SUMMARY
           echo "[🔗 Click here to view the Live Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/)" >> $GITHUB_STEP_SUMMARY
-          echo "Total tests discovered: 7" >> $GITHUB_STEP_SUMMARY
+          echo "Total test executions (across all browsers): $TOTAL_TESTS" >> $GITHUB_STEP_SUMMARY
